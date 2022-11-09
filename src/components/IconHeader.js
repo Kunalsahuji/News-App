@@ -30,6 +30,7 @@ const IconHeader = () => {
             style={Style.search}
             source={require('../../assets/search.png')}
           />
+          {/* image */}
           <Image
             style={Style.profile}
             source={require('../../assets/profile.png')}
