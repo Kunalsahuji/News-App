@@ -11,7 +11,7 @@ import {
   View,
   Image,
 } from 'react-native';
-
+// import ViewCard from './src/components/ViewCard';
 const App = () => {
   return (
     <View style={style.appstyle}>

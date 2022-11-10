@@ -1,37 +1,27 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
-const Card = props => {
+const ViewCard = props => {
   const {item} = props;
+  // console.log(item)
   return (
     <View style={styles.parentViewStyle}>
       <View style={styles.infoViewStyle}>
-        <Text style={styles.topTextStyle}>{"Ind vs Eng Tests to be played in front of crowd"}</Text>
-        <Text style={styles.bottomTextStyle}>{"The 5-test series between India and England"}</Text>
+        <Text style={styles.topTextStyle} numberOfLines={3}>{item.title}</Text>
+        <Text style={styles.bottomTextStyle} numberOfLines={4}>{item.description}</Text>
       </View>
       <View style={styles.descViewStyle}>
         <Image style={styles.image} source={{
-            uri: 'https://png.pngitem.com/pimgs/s/192-1924293_virat-kohli-hd-png-download.png',
+            uri: item.urlToImage,
           }}/>
       </View>
     </View>
   );
 };
 
-export default Card;
+export default ViewCard;
 
 const styles = StyleSheet.create({
-  parentViewStyle: {
-    width: '90%',
-    backgroundColor: 'white',
-    height: 150,
-    alignSelf: 'center',
-    borderRadius: 10,
-    margin: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    elevation: 3,
-    padding: 10,
-  },
+  
   infoViewStyle: {
     height: '100%',
     width: '60%',
@@ -39,6 +29,18 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
     flexDirection: 'column',
   },
+  parentViewStyle: {
+    width: '90%',
+    backgroundColor: 'white',
+    height: 180,
+    alignSelf: 'center',
+    borderRadius: 10,
+    margin: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    elevation: 3,
+    padding: 10,
+},
   descViewStyle: {
     height: '100%',
     width: '40%',
@@ -48,11 +50,12 @@ const styles = StyleSheet.create({
   topTextStyle: {
     fontWeight: 'bold',
     color: 'black',
-    fontSize: 14,
+    fontSize: 18,
   },
   bottomTextStyle: {
     color: 'black',
-    fontSize: 12,
+    fontSize: 15,
+    paddingTop: 10,
   },
   image: {
     width: '100%',

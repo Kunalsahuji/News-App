@@ -8,7 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import Card from './ViewCard';
+import ViewCard from './ViewCard';
 
 const IconHeader = () => {
   const Data = ['All', 'Technology', 'Sports', 'Health'];
@@ -30,7 +30,7 @@ const IconHeader = () => {
             style={Style.search}
             source={require('../../assets/search.png')}
           />
-          {/* image */}
+
           <Image
             style={Style.profile}
             source={require('../../assets/profile.png')}
@@ -49,9 +49,7 @@ const IconHeader = () => {
           horizontal={true}
           data={Data}
           renderItem={({item}) => {
-            return(
-            <Card item={item} />
-            );
+            return <ViewCard item={item} />;
           }}
         />
       </View>
@@ -62,41 +60,49 @@ const IconHeader = () => {
 const Style = StyleSheet.create({
   container: {
     justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
     flexDirection: 'row',
     marginTop: 5,
   },
   menu: {
     width: 40,
-    height: 40,
+    height: 25,
     resizeMode: 'contain',
+    marginTop: 8,
+    marginLeft: 5,
   },
   instep: {
     width: 80,
     height: 40,
     resizeMode: 'contain',
-    marginLeft: 15,
+    marginLeft: 5,
+    marginTop: 5,
   },
   container2: {
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     flexDirection: 'row',
     marginLeft: 5,
+    marginTop: 5,
   },
   search: {
-    width: 70,
-    height: 35,
-    marginLeft: 25,
+    width: 40,
+    height: 25,
+    marginLeft: 40,
     resizeMode: 'contain',
+    marginTop: 5,
   },
   profile: {
+    width: 60,
+    height: 25,
+    resizeMode: 'contain',
+    marginTop: 5,
+  },
+  myprofile: {
     width: 70,
     height: 35,
     resizeMode: 'contain',
-  },
-  myprofile: {
-    width: 80,
-    height: 40,
-    resizeMode: 'contain',
+    marginTop: 5,
   },
   touchstyle: {
     width: 80,
@@ -112,7 +118,9 @@ const Style = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: 'black',
-    marginTop: 20,
+    marginTop: 15,
+    marginLeft: 5,
+    marginBottom: 5,
   },
   container1: {
     color: 'black',
