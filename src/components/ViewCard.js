@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image,} from 'react-native';
 const ViewCard = props => {
   const {item} = props;
   // console.log(item)
   return (
     <View style={styles.parentViewStyle}>
       <View style={styles.infoViewStyle}>
-        <Text style={styles.topTextStyle} numberOfLines={3}>{item.title}</Text>
-        <Text style={styles.bottomTextStyle} numberOfLines={4}>{item.description}</Text>
+        <Text style={styles.topTextStyle} numberOfLines={2}>{item.title}</Text>
+        <Text style={styles.bottomTextStyle} numberOfLines={3}>{item.description}</Text>
       </View>
       <View style={styles.descViewStyle}>
         <Image style={styles.image} source={{
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     elevation: 3,
-    padding: 10,
+    padding: 15,
 },
   descViewStyle: {
     height: '100%',
@@ -50,17 +50,20 @@ const styles = StyleSheet.create({
   topTextStyle: {
     fontWeight: 'bold',
     color: 'black',
-    fontSize: 18,
+    fontSize: 20,
+    marginRight:25
   },
   bottomTextStyle: {
     color: 'black',
-    fontSize: 15,
+    fontSize: 18,
     paddingTop: 10,
+    marginRight:20
   },
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'contain',
-    borderRadius: 5
+    resizeMode: 'cover',
+    borderRadius: 10,
+    
   }
 });

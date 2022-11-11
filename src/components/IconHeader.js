@@ -25,18 +25,18 @@ const IconHeader = () => {
           style={Style.instep}
           source={require('../../assets/instep.png')}
         />
-        <View style={Style.container2}>
+        <View style={Style.container1}>
           <Image
             style={Style.search}
             source={require('../../assets/search.png')}
           />
-
           <Image
             style={Style.profile}
             source={require('../../assets/profile.png')}
           />
+
           <TouchableOpacity style={Style.touchstyle}>
-            <Text style={Style.touchtext}>My Profile</Text>
+            <Text style={Style.myprofile}>{'My Profile'}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -44,7 +44,7 @@ const IconHeader = () => {
       <View style={{}}>
         <Text style={Style.header}>Top News For You</Text>
       </View>
-      <View style={Style.container1}>
+      <View style={Style.container2}>
         <FlatList
           horizontal={true}
           data={Data}
@@ -62,67 +62,64 @@ const Style = StyleSheet.create({
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
     flexDirection: 'row',
-    marginTop: 5,
+    marginLeft: 5,
   },
   menu: {
-    width: 40,
-    height: 25,
+    width: 25,
+    height: 20,
     resizeMode: 'contain',
-    marginTop: 8,
+    marginTop: 15,
     marginLeft: 5,
   },
   instep: {
-    width: 80,
-    height: 40,
+    width: 75,
+    height: 50,
     resizeMode: 'contain',
     marginLeft: 5,
-    marginTop: 5,
+    marginHorizontal: 5,
   },
-  container2: {
+  container1: {
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     flexDirection: 'row',
-    marginLeft: 5,
-    marginTop: 5,
+    marginTop: 8,
   },
   search: {
     width: 40,
     height: 25,
-    marginLeft: 40,
+    marginLeft: 50,
     resizeMode: 'contain',
-    marginTop: 5,
   },
   profile: {
     width: 60,
     height: 25,
     resizeMode: 'contain',
-    marginTop: 5,
-  },
-  myprofile: {
-    width: 70,
-    height: 35,
-    resizeMode: 'contain',
+    marginLeft: 15,
     marginTop: 5,
   },
   touchstyle: {
-    width: 80,
-    height: 50,
+    width: 70,
+    height: 40,
     resizeMode: 'contain',
   },
-  touchtext: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 10,
+  myprofile: {
+    width: 90,
+    height: 40,
+    fontSize: 18,
+    color: 'black',
+    resizeMode: 'contain',
+    marginLeft: 5,
+
   },
   header: {
-    fontSize: 28,
     fontWeight: 'bold',
+    fontSize: 25,
     color: 'black',
-    marginTop: 15,
-    marginLeft: 5,
-    marginBottom: 5,
+    marginTop: 20,
+    marginLeft: 15,
+    marginBottom: 15,
   },
-  container1: {
+  container2: {
     color: 'black',
     fontSize: 5,
     flex: 1,

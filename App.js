@@ -1,6 +1,7 @@
 import React from 'react';
 import IconHeader from './src/components/IconHeader';
 import NewsCard from './src/components/NewsCard';
+import Login from './src/components/Login';
 import {
   SafeAreaView,
   ScrollView,
@@ -15,14 +16,15 @@ import {
 const App = () => {
   return (
     <View style={style.appstyle}>
-      <IconHeader />
-      <NewsCard />
+      {/* <IconHeader /> */}
+      {/* <NewsCard /> */}
+      <Login/>
     </View>
   );
 };
 const style = StyleSheet.create({
   appstyle: {
-    flex: 1,
+    flex: 0,
     backgroundColor: '#f4f9f9',
   },
 });

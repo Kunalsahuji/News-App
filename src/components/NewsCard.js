@@ -43,19 +43,22 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 5,
     backgroundColor: '#f4f9f8',
+    flex:1
   },
   category: {
     marginVertical: 10,
+    marginBottom:10
   },
   btnText: {
-    fontSize: 20,
-    marginHorizontal: 15,
-    borderRadius: 50,
+    fontSize: 18,
+    marginHorizontal: 10,
+    borderRadius: 45,
     textAlign: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 13,
+    padding:10,
     fontWeight: 'bold',
     backgroundColor: '#FFFFFF',
+  
+   
   },
 });
 
