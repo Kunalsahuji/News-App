@@ -1,32 +1,20 @@
 import React from 'react';
-import IconHeader from './src/components/IconHeader';
-import NewsCard from './src/components/NewsCard';
-import Login from './src/components/Login';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Image,
-} from 'react-native';
-// import ViewCard from './src/components/ViewCard';
-const App = () => {
+import 'react-native-gesture-handler';
+import Router from './src/routes/Router';
+import {StyleSheet, View} from 'react-native';
+//import ViewCard from './src/components/ViewCard';
+
+export default function App() {
   return (
     <View style={style.appstyle}>
-      {/* <IconHeader /> */}
-      {/* <NewsCard /> */}
-      <Login/>
+      <Router />
     </View>
   );
-};
+}
+
 const style = StyleSheet.create({
   appstyle: {
-    flex: 0,
+    flex: 1,
     backgroundColor: '#f4f9f9',
   },
 });
-
-export default App;

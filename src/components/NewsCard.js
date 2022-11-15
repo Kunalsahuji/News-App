@@ -9,7 +9,7 @@ const NewsCard = () => {
   const [flatListData, setFlatListData] = useState([]);
 
   useEffect(()=>{
-     axios.get('https://newsapi.org/v2/everything?q=tesla&from=2022-10-10&sortBy=publishedAt&apiKey=0a291b64e8cc42228eb9a4d0e60283aa')
+     axios.get('https://newsapi.org/v2/everything?q=tesla&from=2022-10-15&sortBy=publishedAt&apiKey=0a291b64e8cc42228eb9a4d0e60283aa')
      .then((res)=>{
       setFlatListData(res.data?.articles)
      })
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 5,
     backgroundColor: '#f4f9f8',
-    flex:1
+    height: '100%'
   },
   category: {
     marginVertical: 10,

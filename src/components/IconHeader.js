@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import ViewCard from './ViewCard';
-
 const IconHeader = () => {
   const Data = ['All', 'Technology', 'Sports', 'Health'];
   return (
@@ -44,7 +43,7 @@ const IconHeader = () => {
       <View style={{}}>
         <Text style={Style.header}>Top News For You</Text>
       </View>
-      <View style={Style.container2}>
+      {/* <View style={Style.container2}>
         <FlatList
           horizontal={true}
           data={Data}
@@ -52,7 +51,7 @@ const IconHeader = () => {
             return <ViewCard item={item} />;
           }}
         />
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -95,7 +94,6 @@ const Style = StyleSheet.create({
     height: 25,
     resizeMode: 'contain',
     marginLeft: 15,
-    marginTop: 5,
   },
   touchstyle: {
     width: 70,
@@ -109,7 +107,6 @@ const Style = StyleSheet.create({
     color: 'black',
     resizeMode: 'contain',
     marginLeft: 5,
-
   },
   header: {
     fontWeight: 'bold',

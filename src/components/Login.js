@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-const Login = () => {
+const Login = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <Image
@@ -38,7 +38,7 @@ const Login = () => {
           autoCorrect={false}
         />
       </View>
-      <TouchableOpacity style={styles.buttonStyle}>
+      <TouchableOpacity style={styles.buttonStyle} onPress={()=>navigation.push('HomeScreen')}>
         <Text style={styles.Text1}>Login</Text>
       </TouchableOpacity>
     </View>
