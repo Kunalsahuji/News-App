@@ -43,15 +43,6 @@ const IconHeader = () => {
       <View style={{}}>
         <Text style={Style.header}>Top News For You</Text>
       </View>
-      {/* <View style={Style.container2}>
-        <FlatList
-          horizontal={true}
-          data={Data}
-          renderItem={({item}) => {
-            return <ViewCard item={item} />;
-          }}
-        />
-      </View> */}
     </View>
   );
 };
@@ -62,6 +53,7 @@ const Style = StyleSheet.create({
     alignSelf: 'flex-start',
     flexDirection: 'row',
     marginLeft: 5,
+    backgroundColor: 'f4f9f8',
   },
   menu: {
     width: 25,

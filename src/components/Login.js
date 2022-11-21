@@ -7,8 +7,10 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 const Login = ({navigation}) => {
   return (
+    <SafeAreaView>
     <View style={styles.mainContainer}>
       <Image
         source={{
@@ -38,10 +40,13 @@ const Login = ({navigation}) => {
           autoCorrect={false}
         />
       </View>
-      <TouchableOpacity style={styles.buttonStyle} onPress={()=>navigation.push('HomeScreen')}>
+      <TouchableOpacity
+        style={styles.buttonStyle}
+        onPress={() => navigation.push('HomeScreen')}>
         <Text style={styles.Text1}>Login</Text>
       </TouchableOpacity>
     </View>
+    </SafeAreaView>
   );
 };
 export default Login;
@@ -69,7 +74,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'black',
     marginTop: 5,
-    //lineHeight: 30,
     fontFamily: 'regular',
     fontSize: 20,
   },
@@ -86,13 +90,13 @@ const styles = StyleSheet.create({
     margin: 80,
     padding: 5,
     borderRadius: 10,
-    paddingVertical: 10
+    paddingVertical: 10,
   },
   Text1: {
     fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: 'white'
+    color: 'white',
   },
   image: {
     width: 300,
