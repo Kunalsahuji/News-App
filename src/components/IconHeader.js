@@ -3,9 +3,7 @@ import {
   Text,
   View,
   StyleSheet,
-  Button,
   Image,
-  FlatList,
   TouchableOpacity,
 } from 'react-native';
 import ViewCard from './ViewCard';
@@ -104,9 +102,9 @@ const Style = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 25,
     color: 'black',
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 15,
-    marginBottom: 15,
+    marginBottom: 10,
   },
   container2: {
     color: 'black',

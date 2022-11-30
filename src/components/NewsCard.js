@@ -3,15 +3,16 @@ import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import ViewCard from './ViewCard';
 import axios from 'axios';
 
-const NewsCard = () => {
-  const Data = [1, 2];
+const NewsCard = (props) => {
+  const {isExpandable} = props;
   const Category = ['All', 'Technology', 'sports', 'health'];
   const [flatListData, setFlatListData] = useState([]);
+  
 
   useEffect(() => {
     axios
       .get(
-        'https://newsapi.org/v2/everything?q=apple&from=2022-11-20&to=2022-11-20&sortBy=popularity&apiKey=0a291b64e8cc42228eb9a4d0e60283aa',
+        'https://newsapi.org/v2/everything?q=apple&from=2022-11-29&to=2022-11-29&sortBy=popularity&apiKey=0a291b64e8cc42228eb9a4d0e60283aa',
       )
       .then(res => {
         setFlatListData(res.data?.articles);
@@ -34,7 +35,11 @@ const NewsCard = () => {
         )}
       />
       <FlatList
-        data={flatListData}
+        data={
+          isExpandable ? flatListData.slice(0, 10) : flatListData.slice(0, 2)
+        }
+        //keyExtractor={item:flatListData,index:{10}
+        //data={flatListData}
         renderItem={({item}) => {
           return <ViewCard item={item} />;
         }}
@@ -47,7 +52,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 5,
     backgroundColor: '#f4f9f8',
-    height: '100%',
+    //height: '100%',
   },
   category: {
     marginVertical: 10,

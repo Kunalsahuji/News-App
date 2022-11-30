@@ -4,14 +4,13 @@ import {enableScreens} from 'react-native-screens';
 enableScreens();
 import HomeScreen from '../Screens/HomeScreen';
 import Login from '../components/Login';
-
 const Stack = createStackNavigator();
 
 export default function Router() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} />
+      <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}

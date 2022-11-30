@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
@@ -7,79 +7,163 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-const Login = ({navigation}) => {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import CheckBox from '@react-native-community/checkbox';
+import axios from 'axios';
+const Login = (navigation) => {
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+
+  const handleSubmit = () => {
+    if (email && pass) {
+      let payload = {email: email, pass: pass};
+
+      axios
+        .post('https://reqres.in/api/login', payload)
+        .then(async res => {
+          console.log(res.data);
+          try {
+            await AsyncStorage.setItem('LOGIN_DATA', JSON.stringify(payload));
+            alert('Data successfully saved');
+          } catch (error) {
+            alert('Failed to save the data to the storage');
+          }
+        })
+        .catch(err => {
+          console.log('Err', err);
+          alert(err);
+        });
+    } else {
+      alert('please fill data');
+    }
+  };
   return (
     <SafeAreaView>
-    <View style={styles.mainContainer}>
-      <Image
-        source={{
-          uri: 'https://cdn-icons-png.flaticon.com/512/5087/5087579.png',
-        }}
-        resizeMode="contain"
-        style={styles.image}
-      />
-
-      <Text style={styles.mainHeader}>Welcome to Instep News</Text>
-
-      <Text style={styles.text2}> Sign IN</Text>
-      <View style={styles.inputContainer}>
-        <Text style={styles.lables}>Enter your username</Text>
-        <TextInput
-          style={styles.inputStyle}
-          autoCapitalize="none"
-          autoCorrect={false}
+      <View style={styles.mainContainer}>
+        <Image
+          source={{
+            uri: 'https://cdn-icons-png.flaticon.com/512/5087/5087579.png',
+          }}
+          resizeMode="center"
+          style={styles.image}
         />
+
+        <Text style={styles.mainHeader}>Welcome to Instep News</Text>
+
+        <Text style={styles.signinText}> Sign IN</Text>
+        <View style={styles.inputContainerMail}>
+          <Text style={styles.lablesEmail}>Enter your Email id</Text>
+          <TextInput
+            style={styles.inputStyleMail}
+            autoCapitalize="none"
+            onChangeText={email => setEmail(email)}
+            autoCorrect={false}
+            value={email}
+          />
+        </View>
+        <View style={styles.inputContainerPass}>
+          <Text style={styles.lablesPass}>Enter your password</Text>
+          <TextInput
+            style={styles.inputStylePass}
+            secureTextEntry={true}
+            autoCapitalize="none"
+            onChangeText={pass => setPass(pass)}
+            autoCorrect={false}
+            value={pass}
+          />
+        </View>
+        <View style={styles.wrapper}>
+          <CheckBox
+            disabled={false}
+            value={toggleCheckBox}
+            onValueChange={toggleCheckBox =>
+              setToggleCheckBox(toggleCheckBox)
+            }
+            color={toggleCheckBox ? '#4630EB' : undefined}
+          />
+          <Text style={styles.wrapperText}>Remember Me</Text>
+        </View>
+        <TouchableOpacity
+          style={[
+            styles.buttonStyle,
+            {backgroundColor: toggleCheckBox ? '#4630EB' : 'grey'},
+          ]}
+          disabled={!toggleCheckBox}
+          onPress={handleSubmit}
+          /* onPress= { () => Navigation.push('HomeScreen')} */
+          >
+          <Text style={styles.loginText}>Login</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.lables}>Enter your password</Text>
-        <TextInput
-          style={styles.inputStyle}
-          secureTextEntry={true}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-      </View>
-      <TouchableOpacity
-        style={styles.buttonStyle}
-        onPress={() => navigation.push('HomeScreen')}>
-        <Text style={styles.Text1}>Login</Text>
-      </TouchableOpacity>
-    </View>
     </SafeAreaView>
   );
 };
+
 export default Login;
 
 const styles = StyleSheet.create({
   mainContainer: {
     height: '100%',
-    paddingTop: 30,
+    paddingTop: 5,
     paddingHorizontal: 30,
-    backgroundColor: 'white',
+    backgroundColor: 'f4f9f8',
+  },
+  image: {
+    width: '100%',
+    height: '30%',
   },
   mainHeader: {
     fontSize: 28,
     color: 'black',
     fontWeight: 'center',
-    marginTop: 10,
+    marginTop: 5,
     fontFamily: 'bold',
     textAlign: 'center',
   },
-
-  inputContainer: {
-    marginTop: 20,
+  signinText: {
+    fontSize: 20,
+    color: 'blue',
+    textAlign: 'center',
   },
-  lables: {
+
+  inputContainerMail: {
+    marginTop: 20,
+    lineHeight: 25,
+  },
+
+  lablesEmail: {
+    fontSize: 18,
+    color: 'black',
+    marginTop: 5,
+    //lineHeight: 30,
+    fontFamily: 'regular',
+    fontSize: 20,
+  },
+  inputStyleMail: {
+    borderWidth: 2,
+    borderColor: 'grey',
+    fontSize: 16,
+    paddingHorizontal: 15,
+    paddingVertical: 7,
+    borderRadius: 10,
+  },
+  inputContainerPass: {
+    marginTop: 10,
+    lineHeight: 25,
+  },
+  lablesPass: {
     fontSize: 18,
     color: 'black',
     marginTop: 5,
     fontFamily: 'regular',
     fontSize: 20,
   },
-  inputStyle: {
-    borderWidth: 1,
+  inputStylePass: {
+    borderWidth: 2,
     borderColor: 'grey',
+    fontSize: 16,
     paddingHorizontal: 15,
     paddingVertical: 7,
     borderRadius: 10,
@@ -92,20 +176,22 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 10,
   },
-  Text1: {
+  wrapper: {
+    //marginLeft:5,
+    top: 10,
+  },
+  wrapperText: {
+    color: 'black',
+    textAlign: 'center',
+    marginRight: 150,
+    bottom: 28,
+    fontSize: 17,
+    //fontWeight:'bold',
+  },
+  loginText: {
     fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
     color: 'white',
-  },
-  image: {
-    width: 300,
-    height: 220,
-    marginBottom: 10,
-  },
-  text2: {
-    fontSize: 20,
-    color: 'black',
-    textAlign: 'center',
   },
 });
