@@ -1,13 +1,26 @@
-import React, {Component} from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import React from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 const ViewCard = props => {
   const {item} = props;
   return (
     <View style={styles.parentViewStyle}>
       <View style={styles.infoViewStyle}>
-        <Text style={styles.topTextStyle} numberOfLines={2}>
-          {item.title}
-        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            Linking.openURL(item.url);
+            console.log(item.url);
+          }}>
+          <Text style={styles.topTextStyle} numberOfLines={2}>
+            {item.title}
+          </Text>
+        </TouchableOpacity>
         <Text style={styles.bottomTextStyle} numberOfLines={3}>
           {item.description}
         </Text>
@@ -49,8 +62,7 @@ const styles = StyleSheet.create({
   descViewStyle: {
     height: '100%',
     width: '40%',
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
+    borderRadius: 10,
   },
   topTextStyle: {
     fontWeight: 'bold',
@@ -65,9 +77,9 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
+    width: '96%',
+    height: '90%',
+    resizeMode: 'stretch',
     borderRadius: 10,
   },
 });

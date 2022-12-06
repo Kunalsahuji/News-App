@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Image,
@@ -8,39 +8,53 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import CheckBox from '@react-native-community/checkbox';
 import axios from 'axios';
-const Login = (navigation) => {
+import {StackActions} from '@react-navigation/native';
+
+const Login = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-
+  useEffect(() => {
+    const loginData = async () => {
+      const stayLogin = await AsyncStorage.getItem('LOGIN');
+      if (stayLogin !== null) {
+        navigation.dispatch(StackActions.replace('HomeScreen'));
+      } else {
+        navigation.navigate('Login');
+      }
+    };
+    loginData();
+  }, []);
   const handleSubmit = () => {
-    if (email && pass) {
-      let payload = {email: email, pass: pass};
-
+    if (email && password) {
+      let payload = {email: email, password: password};
       axios
         .post('https://reqres.in/api/login', payload)
         .then(async res => {
-          console.log(res.data);
+          //console.log(res.data);
           try {
             await AsyncStorage.setItem('LOGIN_DATA', JSON.stringify(payload));
-            alert('Data successfully saved');
+            await AsyncStorage.setItem('LOGIN', res.data.token);
+            console.log('token', res.data.token);
+            alert('Login successfully');
+            navigation.dispatch(StackActions.replace('HomeScreen'));
           } catch (error) {
             alert('Failed to save the data to the storage');
           }
         })
         .catch(err => {
           console.log('Err', err);
-          alert(err);
+          alert(err.response.data.error);
         });
     } else {
       alert('please fill data');
     }
   };
+
   return (
-    <SafeAreaView>
+    <View>
       <View style={styles.mainContainer}>
         <Image
           source={{
@@ -49,10 +63,8 @@ const Login = (navigation) => {
           resizeMode="center"
           style={styles.image}
         />
-
         <Text style={styles.mainHeader}>Welcome to Instep News</Text>
-
-        <Text style={styles.signinText}> Sign IN</Text>
+        <Text style={styles.signinText}>Sign IN</Text>
         <View style={styles.inputContainerMail}>
           <Text style={styles.lablesEmail}>Enter your Email id</Text>
           <TextInput
@@ -61,6 +73,7 @@ const Login = (navigation) => {
             onChangeText={email => setEmail(email)}
             autoCorrect={false}
             value={email}
+            textContentType="email"
           />
         </View>
         <View style={styles.inputContainerPass}>
@@ -69,40 +82,27 @@ const Login = (navigation) => {
             style={styles.inputStylePass}
             secureTextEntry={true}
             autoCapitalize="none"
-            onChangeText={pass => setPass(pass)}
+            onChangeText={password => setPassword(password)}
             autoCorrect={false}
-            value={pass}
+            value={password}
           />
         </View>
         <View style={styles.wrapper}>
           <CheckBox
             disabled={false}
             value={toggleCheckBox}
-            onValueChange={toggleCheckBox =>
-              setToggleCheckBox(toggleCheckBox)
-            }
-            color={toggleCheckBox ? '#4630EB' : undefined}
+            onValueChange={toggleCheckBox => setToggleCheckBox(toggleCheckBox)}
           />
           <Text style={styles.wrapperText}>Remember Me</Text>
         </View>
-        <TouchableOpacity
-          style={[
-            styles.buttonStyle,
-            {backgroundColor: toggleCheckBox ? '#4630EB' : 'grey'},
-          ]}
-          disabled={!toggleCheckBox}
-          onPress={handleSubmit}
-          /* onPress= { () => Navigation.push('HomeScreen')} */
-          >
+        <TouchableOpacity style={[styles.buttonStyle]} onPress={handleSubmit}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
-
 export default Login;
-
 const styles = StyleSheet.create({
   mainContainer: {
     height: '100%',
@@ -132,12 +132,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     lineHeight: 25,
   },
-
   lablesEmail: {
     fontSize: 18,
     color: 'black',
     marginTop: 5,
-    //lineHeight: 30,
     fontFamily: 'regular',
     fontSize: 20,
   },
@@ -177,7 +175,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   wrapper: {
-    //marginLeft:5,
     top: 10,
   },
   wrapperText: {
@@ -186,7 +183,6 @@ const styles = StyleSheet.create({
     marginRight: 150,
     bottom: 28,
     fontSize: 17,
-    //fontWeight:'bold',
   },
   loginText: {
     fontSize: 20,

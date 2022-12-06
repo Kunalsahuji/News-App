@@ -1,20 +1,18 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {StyleSheet, Dimensions, ScrollView} from 'react-native';
 import IconHeader from '../components/IconHeader';
 import NewsCard from '../components/NewsCard';
 import FooterComponent from '../footer/footer';
-//import ViewCard from '../components/ViewCard';
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const [isExpandable, setIseExpandable] = useState(false);
-  const ShowMoreBtn=()=>{
-    setIseExpandable(!isExpandable)
-  }
+  const ShowMoreBtn = () => {
+    setIseExpandable(!isExpandable);
+  };
   return (
     <ScrollView style={style.appstyle}>
-      <IconHeader />
+      <IconHeader navigation={navigation} />
       <NewsCard isExpandable={isExpandable} />
-      <FooterComponent isExpandable={isExpandable} ShowMoreBtn={ShowMoreBtn}/>
+      <FooterComponent isExpandable={isExpandable} ShowMoreBtn={ShowMoreBtn} />
     </ScrollView>
   );
 };

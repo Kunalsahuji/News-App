@@ -1,14 +1,23 @@
-import React, {Component} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
 import {
   Text,
   View,
   StyleSheet,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
-import ViewCard from './ViewCard';
-const IconHeader = () => {
-  const Data = ['All', 'Technology', 'Sports', 'Health'];
+
+const IconHeader = props => {
+  const {navigation} = props;
+  const getData = async () => {
+    await AsyncStorage.removeItem('LOGIN');
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Login'}],
+    });
+  };
   return (
     <View>
       <View style={Style.container}>
@@ -31,9 +40,26 @@ const IconHeader = () => {
             style={Style.profile}
             source={require('../../assets/profile.png')}
           />
-
-          <TouchableOpacity style={Style.touchstyle}>
-            <Text style={Style.myprofile}>{'My Profile'}</Text>
+          <TouchableOpacity
+            style={Style.touchstyle}
+            onPress={() =>
+              Alert.alert(
+                'LOGOUT',
+                'Are you sure to Logout ?',
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed!'),
+                  },
+                  {
+                    text: 'Confirm',
+                    onPress: () => getData(),
+                  },
+                ],
+                {cancelable: false},
+              )
+            }>
+            <Text style={Style.myprofile}>Logout</Text>
           </TouchableOpacity>
         </View>
       </View>
